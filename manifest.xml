@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OfficeApp 
+          xmlns="http://schemas.microsoft.com/office/appforoffice/1.1" 
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+          xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0" 
+          xmlns:mailappor="http://schemas.microsoft.com/office/mailappversionoverrides/1.0" 
+          xsi:type="MailApp">
+
+  <!-- Début des paramètres de base : métadonnées de complément utilisées pour toutes les versions d'Office, sauf en cas de substitution. -->
+
+  <!-- IMPORTANT ! L'ID doit être unique pour votre complément. Si vous réutilisez ce manifeste, veillez à remplacer cet ID par un nouveau GUID. -->
+  <Id>96d487a4-6bb3-4e21-89c1-4e88dd96e2c0</Id>
+  
+  <!--Version. Les mises à jour du Windows Store ne se déclenchent qu'en cas de changement de version. -->
+  <Version>1.0.0.0</Version>
+  <ProviderName>DINUM</ProviderName>
+  <DefaultLocale>fr-FR</DefaultLocale>
+  <!-- Nom d'affichage de votre complément. Utilisé dans le Store et à divers endroits de l'interface utilisateur Office, par exemple la boîte de dialogue des compléments. -->
+  <DisplayName DefaultValue="WebConf de l'Etat" />
+  <Description DefaultValue="Complément Outlook permettant d'ajouter un lien vers une WebConf dans une invitation"/>
+  <IconUrl DefaultValue="https://localhost:3000/assets/webconf.png"/>
+
+  <SupportUrl DefaultValue="https://webconf.numerique.gouv.fr/contact" />
+  <!-- Domaines autorisés durant la navigation. Par exemple, si vous utilisez ShowTaskpane et un lien href, la navigation n'est autorisée que si le domaine figure sur cette liste. -->
+  <!--<AppDomains>
+    <AppDomain>!!DOMAIN_JITSI!!</AppDomain>
+  </AppDomains>-->
+  <!--Fin des paramètres de base. -->
+  
+  <Hosts>
+    <Host Name="Mailbox" />
+  </Hosts>
+  <Requirements>
+    <Sets>
+      <Set Name="Mailbox" MinVersion="1.1" />
+    </Sets>
+  </Requirements>
+  <FormSettings>
+    <Form xsi:type="ItemRead">
+      <DesktopSettings>
+        <SourceLocation DefaultValue="https://localhost:3000/AppointmentCreate.html"/>
+        <RequestedHeight>250</RequestedHeight>
+      </DesktopSettings>
+    </Form>
+  </FormSettings>
+
+  <Permissions>ReadWriteItem</Permissions>
+  <Rule xsi:type="RuleCollection" Mode="Or">  
+    <Rule xsi:type="ItemIs" ItemType="Appointment" FormType="ReadOrEdit" />
+  </Rule>
+  <DisableEntityHighlighting>false</DisableEntityHighlighting>
+
+  <VersionOverrides xmlns="http://schemas.microsoft.com/office/mailappversionoverrides" xsi:type="VersionOverridesV1_0">
+    <VersionOverrides xmlns="http://schemas.microsoft.com/office/mailappversionoverrides/1.1" xsi:type="VersionOverridesV1_1">
+
+      <Requirements>
+        <bt:Sets DefaultMinVersion="1.1">
+          <!-- 1.3 -->
+          <bt:Set Name="Mailbox" />
+        </bt:Sets>
+      </Requirements>
+      <Hosts>
+        <Host xsi:type="MailHost">
+
+          <!-- Event-based activation happens in a lightweight runtime.-->
+          <Runtimes>
+            <!-- HTML file including reference to or inline JavaScript event handlers.
+               This is used by Outlook on the web and Outlook on the new Mac UI. -->
+            <Runtime resid="functionFile">
+              <!-- JavaScript file containing event handlers. This is used by Outlook on Windows. -->
+              <Override type="javascript" resid="functionFileJS"/>
+            </Runtime>
+          </Runtimes>
+
+          <DesktopFormFactor>
+            <!-- Emplacement des fonctions que les boutons sans IU (interface utilisateur) peuvent déclencher (actions ExecuteFunction). -->
+            <FunctionFile resid="functionFile" />
+
+            <ExtensionPoint xsi:type="LaunchEvent">
+              <LaunchEvents>
+                <LaunchEvent Type="OnNewAppointmentOrganizer" FunctionName="AutoFill"/>
+              </LaunchEvents>
+              <SourceLocation resid="functionFile"/>
+            </ExtensionPoint>
+
+            <ExtensionPoint xsi:type="AppointmentOrganizerCommandSurface">
+              <!-- Utilisez l'onglet par défaut de ExtensionPoint, ou créez votre propre onglet avec <CustomTab id="myTab"> -->
+              <OfficeTab id="TabDefault">
+                <!-- Jusqu'à 6 groupes ajoutés par onglet -->
+                <Group id="JitsiGroup">
+                  <Label resid="groupLabel" />
+                  <!-- Lancer le complément : bouton de volet Office -->
+
+                  <Control xsi:type="Button" id="JitsiOpenPaneButton">
+                    <Label resid="JitsiButtonLabel" />
+                    <Supertip>
+                      <Title resid="JitsiButtonTooltip" />
+                      <Description resid="JitsiButtonDescription" />
+                    </Supertip>
+                    <Icon>
+                      <bt:Image size="16" resid="iconWebConf16" />
+                      <bt:Image size="32" resid="iconWebConf32" />
+                      <bt:Image size="80" resid="iconWebConf80" />
+                    </Icon>
+                    <Action xsi:type="ExecuteFunction">
+                      <FunctionName>Fill</FunctionName>
+                    </Action>
+                  </Control>
+
+                  
+                  <!-- Pour apprendre à ajouter des contrôles supplémentaires, notamment ExecuteFunction et Menu, accédez à http://aka.ms/ButtonCommands -->
+                </Group>
+              </OfficeTab>
+            </ExtensionPoint>
+
+          </DesktopFormFactor>
+        </Host>
+      </Hosts>
+
+      <Resources>
+        <bt:Images>
+          <bt:Image id="iconWebConf16" DefaultValue="https://localhost:3000/assets/webconf.png"/><!-- TODO icone 16px -->
+          <bt:Image id="iconWebConf32" DefaultValue="https://localhost:3000/assets/webconf.png"/><!-- TODO icone 32px -->
+          <bt:Image id="iconWebConf80" DefaultValue="https://localhost:3000/assets/webconf.png"/><!-- TODO icone 80px -->
+        </bt:Images>
+        <bt:Urls>
+          <bt:Url id="functionFile" DefaultValue="https://localhost:3000/functions.html"/>
+          <!-- Entry needed for Outlook on Windows. -->
+          <bt:Url id="functionFileJS" DefaultValue="https://localhost:3000/functions.js" />
+        </bt:Urls>
+        <bt:ShortStrings>
+          <bt:String id="groupLabel" DefaultValue="WebConf de l'Etat"/>
+          <bt:String id="JitsiButtonLabel" DefaultValue="Ajouter un lien WebConf"/>
+          <bt:String id="JitsiButtonTooltip" DefaultValue="Ajouter un lien WebConf à votre invitation"/>
+        </bt:ShortStrings>
+        <bt:LongStrings>
+          <bt:String id="JitsiButtonDescription" DefaultValue="Vous permet de générer un lien à ajouter à votre invitation."/>
+        </bt:LongStrings>
+      </Resources>
+    </VersionOverrides>
+  </VersionOverrides>
+</OfficeApp>

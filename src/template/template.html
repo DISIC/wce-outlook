@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <link href="template.css" rel="stylesheet" />
+</head>
+<body>
+
+  <h2>Informations sur la web-conférence.</h2>
+  
+  <h3>Rejoindre depuis un navigateur web</h3>
+  <div class='parent'>
+    <!-- <img class='child inline-block-child' src="../../assets/icon_browser.png" alt="Téléphone" width="50" height="50"> -->
+    <a href="%url%">%url%</a>
+  </div>
+
+  <h3>Rejoindre depuis un téléphone</h3>
+  <div class='parent'>
+    <!-- <img class='child inline-block-child' src="../../assets/icon_phone.png" alt="Téléphone" width="50" height="50"> -->
+    <ul class='child inline-block-child'>
+      <li>
+        Numéro de téléphone : <a href="tel:%phone_numbers%">%phone_numbers%</a>
+      </li>
+      <li>
+        Code de la web-conférence : %pin_code%#
+      </li>
+    </ul>
+  </div>
+
+  <script src="template.js"></script>
+  <script>
+  </script>
+</body>
+</html>
