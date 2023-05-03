@@ -17,7 +17,7 @@ module.exports = async (env, options) => {
   const config = {
     devtool: "source-map",
     entry: {
-      polyfill: ["core-js/stable", "regenerator-runtime/runtime"],
+      // polyfill: ["core-js/stable", "regenerator-runtime/runtime"],
       template: ["./src/template/template.js", "./src/template/template.html"],
       functions: "./src/functions/functions.js",
     },
@@ -54,17 +54,16 @@ module.exports = async (env, options) => {
       ],
     },
     plugins: [
-      new HtmlWebpackPlugin({
-        filename: "template.html",
-        template: "./src/template/template.html",
-        chunks: ["polyfill", "template"],
-      }),
       new CopyWebpackPlugin({
         patterns: [
           {
             from: "assets/*",
             to: "assets/[name][ext][query]",
           },
+          // {
+          //   from: "src/scripts/*",
+          //   to: "scripts/[name][ext][query]",
+          // },
           {
             from: "manifest*.xml",
             to: "[name]" + "[ext]",
@@ -79,9 +78,14 @@ module.exports = async (env, options) => {
         ],
       }),
       new HtmlWebpackPlugin({
+        filename: "template.html",
+        template: "./src/template/template.html",
+        chunks: [/*"polyfill",*/ "template"],
+      }),
+      new HtmlWebpackPlugin({
         filename: "functions.html",
         template: "./src/functions/functions.html",
-        chunks: ["polyfill", "functions"],
+        chunks: [/*"polyfill", "scripts",*/ "functions"],
       }),
       new HtmlWebpackPlugin({
         filename: "AppointmentCreate.html",
