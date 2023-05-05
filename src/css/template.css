@@ -1,9 +1,13 @@
 table{
     text-align: justify;
     border-collapse: collapse;
+    background-color: white;
 }
 tr {
     border-bottom: 1px dotted black;
+}
+td,th {
+    padding: 5px;
 }
 tr:not(:last-child) td:first-child {
     text-align: center;
