@@ -1,3 +1,10 @@
-.inline-block-child {
-
+table{
+    text-align: justify;
+    border-collapse: collapse;
+}
+tr {
+    border-bottom: 1px dotted black;
+}
+tr:not(:last-child) td:first-child {
+    text-align: center;
 }

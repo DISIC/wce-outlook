@@ -18,10 +18,12 @@ module.exports = async (env, options) => {
     devtool: "source-map",
     entry: {
       polyfill: ["core-js/stable", "regenerator-runtime/runtime"],
-      functions: ["./src/js/jquery-3.5.0.min.js","./src/js/config.js","./src/js/functions.js", "./src/functions.html"]
+      jquery: "./src/js/jquery-3.5.0.min.js",
+      functions: "./src/js/functions.js",
     },
     output: {
       clean: true,
+      filename: "[name].[contenthash].js",
     },
     resolve: {
       extensions: [".html", ".js"],
@@ -31,12 +33,22 @@ module.exports = async (env, options) => {
         {
           test: /\.js$/,
           exclude: /node_modules/,
-          use: {
-            loader: "babel-loader",
-            options: {
-              presets: ["@babel/preset-env"],
+          use: [
+            {
+              loader: "babel-loader",
+              options: {
+                presets: ["@babel/preset-env"],
+              },
             },
-          },
+            {
+              loader: "string-replace-loader",
+              options: {
+                search: urlDev,
+                replace: urlProd,
+                flags: "g",
+              },
+            },
+          ],
         },
         {
           test: /\.html$/,
@@ -44,7 +56,7 @@ module.exports = async (env, options) => {
           use: "html-loader",
         },
         {
-          test: /\.(png|jpg|jpeg|gif|ico)$/,
+          test: /\.(png|jpg|jpeg|gif|ico|svg)$/,
           type: "asset/resource",
           generator: {
             filename: "assets/[name][ext][query]",
@@ -75,12 +87,12 @@ module.exports = async (env, options) => {
       new HtmlWebpackPlugin({
         filename: "functions.html",
         template: "./src/functions.html",
-        chunks: ["polyfill","functions"]
+        chunks: ["polyfill", "functions", "jquery"],
       }),
       new HtmlWebpackPlugin({
         filename: "template.html",
         template: "./src/template.html",
-        chunks: ["polyfill"]
+        chunks: ["polyfill"],
       }),
       new HtmlWebpackPlugin({
         filename: "AppointmentCreate.html",

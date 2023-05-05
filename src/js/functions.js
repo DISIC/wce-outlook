@@ -1,3 +1,5 @@
+import CONFIG from './config.js'
+
 // -----------------------------------------------------------------
 Office.initialize = function () {};
 
@@ -16,7 +18,7 @@ async function Fill(event) {
 // -----------------------------------------------------------------
 function GenerateRoomName() {
   try {
-    return JITSI_ROOM_NAME_FORMAT;
+    return CONFIG.JITSI_ROOM_NAME_FORMAT;
   } catch (error) {
     console.error(error);
   }
@@ -25,7 +27,7 @@ function GenerateRoomName() {
 // -----------------------------------------------------------------
 function GetUrl(roomName) {
   try {
-    return "https://" + ROOT_JITSI_DOMAIN + "/" + roomName;
+    return "https://" + CONFIG.ROOT_JITSI_DOMAIN + "/" + roomName;
   } catch (error) {
     console.error(error);
   }
@@ -75,16 +77,16 @@ function AddLocationToInvitation(roomName) {
                     let phoneNumbers = "";
                     let pinCode = "";
 
-                    if (ENABLE_PHONE_ACCESS) {
+                    if (CONFIG.ENABLE_PHONE_ACCESS) {
                       try {
                         let result = JSON.parse(
-                          load(`${PHONE_NUMBERS_API_URL}?conference=${roomName}@conference.${ROOT_JITSI_DOMAIN}`)
+                          load(`${CONFIG.PHONE_NUMBERS_API_URL}?conference=${roomName}@conference.${CONFIG.ROOT_JITSI_DOMAIN}`)
                         ).numbers;
 
                         if (result) {
                           Object.keys(result).forEach((key) => {
                             result[key].forEach((number) => {
-                              phoneNumbers += PHONE_NUMBER_FORMAT.replace("%phone_number%", number).replace(
+                              phoneNumbers += CONFIG.PHONE_NUMBER_FORMAT.replace("%phone_number%", number).replace(
                                 "%phone_country%",
                                 key
                               );
@@ -96,14 +98,14 @@ function AddLocationToInvitation(roomName) {
                       }
                       try {
                         pinCode = JSON.parse(
-                          load(`${PHONE_PIN_CODE_API_URL}?conference=${roomName}@conference.${ROOT_JITSI_DOMAIN}`)
+                          load(`${CONFIG.PHONE_PIN_CODE_API_URL}?conference=${roomName}@conference.${CONFIG.ROOT_JITSI_DOMAIN}`)
                         ).id;
                       } catch (error) {
                         console.error(error);
                       }
                     }
 
-                    let htmlBodyUrl = load(INVITE_TEMPLATE_FILE)
+                    let htmlBodyUrl = load(CONFIG.INVITE_TEMPLATE_FILE)
                       .replaceAll("%url%", url)
                       .replaceAll("%phone_numbers%", phoneNumbers)
                       .replaceAll("%pin_code%", pinCode);
