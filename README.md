@@ -10,17 +10,17 @@ Si vous êtes utilisateur Outlook, vous devez suivre les étapes ci-dessous : (S
  - Cliquez sur le bouton "Rechercher des compléments" dans le menu "Accueil"
 ![Rechercher des compléments](./readme_resources/images/rechercher_complements.png)
  - Cliquez sur "Mes compléments", puis sur "Ajouter un complément personnalisé" => "à partir d'une URL"
- - Saissiez l'URL suivante https://webconf.numerique.gouv.fr/wce-outlook/manifest.xml. L'Add-in devarit s'afficher dans la liste des compléments personnalisés : 
+ - Saissiez l'URL suivante https://webconf.numerique.gouv.fr/wce-outlook/manifest.xml. L'Add-in devrait s'afficher dans la liste des compléments personnalisés : 
  <img src="./readme_resources/images/addin_wce.png" alt= "Add-in wce ajouté" width="50%" height="50%">
  
 ## Administrateur Outlook 
 
 ### Microsoft 365
-Si vous êtes administrateur Outlook sur Office 365. Il est recommandé de suivre la documentation de Microsoft et ajouté l'URL de l'add-in.
+Si vous êtes administrateur Outlook sur Office 365. Il est recommandé de suivre la documentation de Microsoft et d'ajouter l'URL de l'add-in.
 - Lien vers la documentation : [https://learn.microsoft.com/fr-fr/microsoft-365/admin/manage/manage-deployment-of-add-ins?view=o365-worldwide](https://learn.microsoft.com/fr-fr/microsoft-365/admin/manage/manage-deployment-of-add-ins?view=o365-worldwide)
 - Lien vers l'Add-in : https://webconf.numerique.gouv.fr/wce-outlook/manifest.xml
 ### Exchange Server
-Si vous êtes administrateur Outlook sur un serveur Exchange. Il est recommandé de suivre la documentation de Microsoft et ajouté l'URL de l'add-in.
+Si vous êtes administrateur Outlook sur un serveur Exchange. Il est recommandé de suivre la documentation de Microsoft et d'ajouter l'URL de l'add-in.
 - Lien vers la documentation : [https://learn.microsoft.com/fr-fr/exchange/add-ins-for-outlook-2013-help](https://learn.microsoft.com/fr-fr/exchange/add-ins-for-outlook-2013-help)
 - Lien vers l'Add-in : https://webconf.numerique.gouv.fr/wce-outlook/manifest.xml
 
