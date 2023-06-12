@@ -10,6 +10,6 @@ Si vous êtes utilisateur Outlook, vous devez suivre les étapes ci-dessous : (S
 ![Rechercher des compléments](./readme_resources/images/rechercher_complements.png)
  - Cliquez sur "Mes compléments", puis sur "Ajouter un complément personnalisé" => "à partir d'une URL"
  - Saissiez l'URL suivante https://webconf.numerique.gouv.fr/wce-outlook/manifest.xml. L'Add-in devarit s'afficher dans la liste des compléments personnalisés : 
- ![Add-in wce ajouté](addin_wce.png)
+ ![Add-in wce ajouté](./readme_resources/images/addin_wce.png)
 ## Administrateur Outlook Outlook 
 
