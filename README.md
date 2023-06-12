@@ -12,7 +12,9 @@ Si vous êtes utilisateur Outlook, vous devez suivre les étapes ci-dessous : (S
  - Cliquez sur "Mes compléments", puis sur "Ajouter un complément personnalisé" => "à partir d'une URL"
  - Saissiez l'URL suivante https://webconf.numerique.gouv.fr/wce-outlook/manifest.xml. L'Add-in devarit s'afficher dans la liste des compléments personnalisés : 
  <img src="./readme_resources/images/addin_wce.png" alt= "Add-in wce ajouté" width="50%" height="50%">
+ 
 ## Administrateur Outlook 
+
 ### Microsoft 365
 Si vous êtes administrateur Outlook sur Office 365. Il est recommandé de suivre la documentation de Microsoft et ajouté l'URL de l'add-in.
 - Lien vers la documentation : [https://learn.microsoft.com/fr-fr/microsoft-365/admin/manage/manage-deployment-of-add-ins?view=o365-worldwide](https://learn.microsoft.com/fr-fr/microsoft-365/admin/manage/manage-deployment-of-add-ins?view=o365-worldwide)
