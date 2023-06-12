@@ -18,11 +18,12 @@ module.exports = async (env, options) => {
     devtool: "source-map",
     entry: {
       polyfill: ["core-js/stable", "regenerator-runtime/runtime"],
-      template: ["./src/template/template.js", "./src/template/template.html"],
-      functions: "./src/functions/functions.js",
+      jquery: "./src/js/jquery-3.5.0.min.js",
+      functions: "./src/js/functions.js",
     },
     output: {
       clean: true,
+      filename: "[name].[contenthash].js",
     },
     resolve: {
       extensions: [".html", ".js"],
@@ -32,12 +33,22 @@ module.exports = async (env, options) => {
         {
           test: /\.js$/,
           exclude: /node_modules/,
-          use: {
-            loader: "babel-loader",
-            options: {
-              presets: ["@babel/preset-env"],
+          use: [
+            {
+              loader: "babel-loader",
+              options: {
+                presets: ["@babel/preset-env"],
+              },
             },
-          },
+            {
+              loader: "string-replace-loader",
+              options: {
+                search: urlDev,
+                replace: urlProd,
+                flags: "g",
+              },
+            },
+          ],
         },
         {
           test: /\.html$/,
@@ -45,7 +56,7 @@ module.exports = async (env, options) => {
           use: "html-loader",
         },
         {
-          test: /\.(png|jpg|jpeg|gif|ico)$/,
+          test: /\.(png|jpg|jpeg|gif|ico|svg)$/,
           type: "asset/resource",
           generator: {
             filename: "assets/[name][ext][query]",
@@ -54,11 +65,6 @@ module.exports = async (env, options) => {
       ],
     },
     plugins: [
-      new HtmlWebpackPlugin({
-        filename: "template.html",
-        template: "./src/template/template.html",
-        chunks: ["polyfill", "template"],
-      }),
       new CopyWebpackPlugin({
         patterns: [
           {
@@ -80,8 +86,13 @@ module.exports = async (env, options) => {
       }),
       new HtmlWebpackPlugin({
         filename: "functions.html",
-        template: "./src/functions/functions.html",
-        chunks: ["polyfill", "functions"],
+        template: "./src/functions.html",
+        chunks: ["polyfill", "functions", "jquery"],
+      }),
+      new HtmlWebpackPlugin({
+        filename: "template.html",
+        template: "./src/template.html",
+        chunks: ["polyfill"],
       }),
       new HtmlWebpackPlugin({
         filename: "AppointmentCreate.html",
@@ -97,6 +108,9 @@ module.exports = async (env, options) => {
         options: env.WEBPACK_BUILD || options.https !== undefined ? options.https : await getHttpsOptions(),
       },
       port: process.env.npm_package_config_dev_server_port || 3000,
+      client: {
+        logging: "info",
+      },
     },
   };
 

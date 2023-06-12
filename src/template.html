@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Invitation Outlook - WebConf de l'Etat</title>
+  <style>
+    table {
+      text-align: justify;
+      border-collapse: collapse;
+      background-color: white;
+      color: black;
+    }
+
+    tr:not(:last-child) {
+      border-bottom: 1px dotted black;
+    }
+
+    th {
+      font-weight: normal;
+    }
+
+    td,
+    th {
+      padding: 5px;
+    }
+    li:not(:first-child){
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <table>
+    <tr>
+      <th>
+        <b>webconf.numerique.gouv.fr</b> - Service de webconférence de l’Etat
+      </th>
+    </tr>
+    <tr>
+      <td>
+        <ul>
+          <li>
+            <b>Depuis un navigateur web (Ordinateur ou téléphone)</b><br>
+            <b>From a web browser (Computer or smartphone)</b><br>
+            Rejoindre via le lien / Join by clicking the link <a href="%url%">%url%</a><br>
+          </li>
+          <li>
+            <b>Depuis un téléphone</b><br>
+            <b>From a telephone</b><br>
+            Composez le <b><a href="tel:%phone_numbers%">%phone_numbers%</a></b> puis saisissez le code de la conférence
+            <b>%pin_code%</b> suivi de <b>#</b>.<br>
+            Dial <b><a href="tel:%phone_numbers%">%phone_numbers%</a></b> and then enter the conference code
+            <b>%pin_code%</b> followed by <b>#</b>.
+          </li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <small>
+          En cas de difficultés, vous pouvez contacter le support en cliquant sur le lien ci-dessous.<br>
+          In case of difficulties, you can contact support by clicking on the link below.<br>
+          <a href="https://webconf.numerique.gouv.fr/contact">https://webconf.numerique.gouv.fr/contact</a>.
+        </small>
+      </td>
+    </tr>
+  </table>
+</body>
+
+</html>
