@@ -107,6 +107,7 @@ function AddLocationToInvitation(roomName) {
 
                     let htmlBodyUrl = load(CONFIG.INVITE_TEMPLATE_FILE)
                       .replaceAll("%url%", url)
+                      .replaceAll("%desktop_url%", url.replace("https", "wce-appli-bureau"))
                       .replaceAll("%phone_numbers%", phoneNumbers)
                       .replaceAll("%pin_code%", pinCode);
 
