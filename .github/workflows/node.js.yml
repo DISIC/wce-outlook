@@ -28,11 +28,11 @@ jobs:
         cache: 'npm'
     - run: npm ci
     - run: npm run build
-    - run: tar czf wce-outlook.tar.gz dist
+    - run: zip -r wce-outlook.zip dist/
     - uses: "marvinpinto/action-automatic-releases@latest"
       with:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
         automatic_release_tag: "latest"
         prerelease: false
         files: |
-          *.tar.gz
+          wce-outlook.zip
