@@ -28,7 +28,7 @@ jobs:
         cache: 'npm'
     - run: npm ci
     - run: npm run build
-    - run: cd ./dist && tar -czf wce-outlook.tar.gz .
+    - run: tar -czvf wce-outlook.tar.gz -C dist .
     - uses: "marvinpinto/action-automatic-releases@latest"
       with:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
