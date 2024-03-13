@@ -55,6 +55,9 @@ sequenceDiagram
     Serveur WebConf-->>Extension wce-outlook: RETURN template.html
 ```
 
+# Environnement de développement 
+Pour mettre en place l'environnement de développement, il est recommandé de suivre la documentation Microsoft : 
+https://learn.microsoft.com/en-us/office/dev/add-ins/quickstarts/outlook-quickstart?tabs=yeomangenerator
  
  # Contact
 Pour toute demande d'assistance. Vous devez vous adresser à vos assistants informatiques de proximité.
