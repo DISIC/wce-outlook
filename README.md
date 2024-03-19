@@ -29,6 +29,35 @@ Si vous êtes administrateur Outlook sur un serveur Exchange. Il est recommandé
 - Dans la page de création de l'événement, cliquez sur le bouton "Ajouter un lien WebConf" (parfois il faut cliquer le bouton "autres commandes" pour y accéder)
 - Votre invitation devrait ressembler à la capture d'écran ci-dessous : 
  <img src="./readme_resources/images/generer_invit.png" alt= "Générer une invitation WebConf" width="50%" height="50%">
+
+# Matrices de flux
+- URL_WEBCONF_OUTLOOK : https://webconf.numerique.gouv.fr/wce-outlook
+- URL_WEBCONF_VOXIFY : https://webconf.numerique.gouv.fr/voxapi/api/v1/conn/jitsi
+
+## A l'ouverture de la fenêtre "Nouvel événement" 
+```mermaid
+sequenceDiagram
+    Extension wce-outlook->>Serveur WebConf: GET fichier functions<br> URL_WEBCONF_OUTLOOK/functions.html?et=
+    Serveur WebConf-->> Extension wce-outlook: RETURN functions.html
+    Extension wce-outlook->>Serveur WebConf: GET icône de l'extension<br> URL_WEBCONF_OUTLOOK/assets/webconf.png
+    Serveur WebConf-->> Extension wce-outlook: RETURN webconf.png
+```
+## Au clic sur le bouton "WebConf de l'Etat"
+```mermaid
+sequenceDiagram
+    Extension wce-outlook->>Serveur WebConf: GET fichier functions (depuis le cache)<br> URL_WEBCONF_OUTLOOK/functions.html?et=
+    Serveur WebConf-->>Extension wce-outlook: RETURN functions.html
+    Extension wce-outlook->>Serveur WebConf: GET <br> URL_WEBCONF_VOXIFY/phoneNumbers?conference=NomDeLaConference1234@conference.webconf.numerique.gouv.fr<br>(Récupérer le numéro de téléphone. Déclencheur functions.js)
+    Serveur WebConf-->>Extension wce-outlook: RETURN JSON (Numéro de téléphone)
+    Extension wce-outlook->>Serveur WebConf: GET <br> URL_WEBCONF_VOXIFY/conference/code?conference=NomDeLaConference1234@conference.webconf.numerique.gouv.fr<br>(Récupérer le numéro de téléphone. Déclencheur functions.js)
+    Serveur WebConf-->>Extension wce-outlook: RETURN JSON (Code de la conférence)
+    Extension wce-outlook->>Serveur WebConf: GET <br> URL_WEBCONF_OUTLOOK/template.html<br>(Template à mettre dans le corps de l'invitation)
+    Serveur WebConf-->>Extension wce-outlook: RETURN template.html
+```
+
+# Environnement de développement 
+Pour mettre en place l'environnement de développement, il est recommandé de suivre la documentation Microsoft : 
+https://learn.microsoft.com/en-us/office/dev/add-ins/quickstarts/outlook-quickstart?tabs=yeomangenerator
  
  # Contact
 Pour toute demande d'assistance. Vous devez vous adresser à vos assistants informatiques de proximité.
