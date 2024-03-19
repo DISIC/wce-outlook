@@ -1,4 +1,5 @@
 /* eslint-disable no-undef */
+// Config webpack file
 
 const devCerts = require("office-addin-dev-certs");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
