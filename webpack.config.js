@@ -4,8 +4,8 @@ const devCerts = require("office-addin-dev-certs");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
-const urlDev = "https://localhost:3000/";
-const urlProd = "https://webconf.numerique.gouv.fr/wce-outlook/"; // CHANGE THIS TO YOUR PRODUCTION DEPLOYMENT LOCATION
+let urlDev = "https://localhost:3000/";
+let urlProd = "https://webconf.numerique.gouv.fr/wce-outlook/"; // CHANGE THIS TO YOUR PRODUCTION DEPLOYMENT LOCATION
 
 async function getHttpsOptions() {
   const httpsOptions = await devCerts.getHttpsServerOptions();
@@ -14,12 +14,16 @@ async function getHttpsOptions() {
 
 module.exports = async (env, options) => {
   const dev = options.mode === "development";
+  if (dev) {
+    urlProd = urlDev;
+  }
   const config = {
     devtool: "source-map",
     entry: {
       polyfill: ["core-js/stable", "regenerator-runtime/runtime"],
       jquery: "./src/js/jquery-3.5.0.min.js",
       functions: "./src/js/functions.js",
+      office: "./src/js/office.js",
     },
     output: {
       clean: true,
@@ -87,7 +91,7 @@ module.exports = async (env, options) => {
       new HtmlWebpackPlugin({
         filename: "functions.html",
         template: "./src/functions.html",
-        chunks: ["polyfill", "functions", "jquery"],
+        chunks: ["polyfill", "functions", "jquery", "office"],
       }),
       new HtmlWebpackPlugin({
         filename: "template.html",
