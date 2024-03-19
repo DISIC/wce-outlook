@@ -1,4 +1,5 @@
 /* eslint-disable no-undef */
+// Config webpack file
 
 const devCerts = require("office-addin-dev-certs");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
@@ -27,7 +28,7 @@ module.exports = async (env, options) => {
     },
     output: {
       clean: true,
-      filename: "[name].[contenthash].js",
+      filename: "[name].js",
     },
     resolve: {
       extensions: [".html", ".js"],
@@ -91,7 +92,7 @@ module.exports = async (env, options) => {
       new HtmlWebpackPlugin({
         filename: "functions.html",
         template: "./src/functions.html",
-        chunks: ["polyfill", "functions", "jquery", "office"],
+        chunks: ["office", "polyfill", "functions", "jquery"],
       }),
       new HtmlWebpackPlugin({
         filename: "template.html",
