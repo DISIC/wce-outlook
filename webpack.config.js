@@ -24,11 +24,10 @@ module.exports = async (env, options) => {
       polyfill: ["core-js/stable", "regenerator-runtime/runtime"],
       jquery: "./src/js/jquery-3.5.0.min.js",
       functions: "./src/js/functions.js",
-      office: "./src/js/office.js",
     },
     output: {
       clean: true,
-      filename: "[name].js",
+      filename: "[name].[contenthash].js",
     },
     resolve: {
       extensions: [".html", ".js"],
@@ -92,7 +91,7 @@ module.exports = async (env, options) => {
       new HtmlWebpackPlugin({
         filename: "functions.html",
         template: "./src/functions.html",
-        chunks: ["office", "polyfill", "functions", "jquery"],
+        chunks: ["polyfill", "functions", "jquery"],
       }),
       new HtmlWebpackPlugin({
         filename: "template.html",
